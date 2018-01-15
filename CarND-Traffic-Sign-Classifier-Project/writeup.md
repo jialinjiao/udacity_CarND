@@ -18,8 +18,8 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 
 [image1]: ./examples/visualization.png "Visualization"
-[image3]: ./examples/before_preprocessing.jpg "Before Preprocessing"
-[image3]: ./examples/after_preprocessing.jpg "After Preprocessing"
+[image3]: ./examples/before_preprocessing.png "Before Preprocessing"
+[image3]: ./examples/after_preprocessing.png "After Preprocessing"
 <!-- [image3]: ./examples/random_noise.jpg "Random Noise" -->
 [image4]: ./examples/placeholder.png "Traffic Sign 1"
 [image5]: ./examples/placeholder.png "Traffic Sign 2"
