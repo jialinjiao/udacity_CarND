@@ -17,7 +17,7 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/visualization.jpg "Visualization"
+[image1]: ./examples/visualization.png "Visualization"
 [image3]: ./examples/before_preprocessing.jpg "Before Preprocessing"
 [image3]: ./examples/after_preprocessing.jpg "After Preprocessing"
 <!-- [image3]: ./examples/random_noise.jpg "Random Noise" -->
@@ -65,7 +65,7 @@ As a last step, I normalized the image data because it is critical for ConvNet t
 
 Here is an example of a traffic sign image before and after grayscaling and normalization.
 
-![alt text][image2]
+![alt text][image2] ![alt text][image3]
 
 
 
