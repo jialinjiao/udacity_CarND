@@ -20,12 +20,18 @@ The goals / steps of this project are the following:
 [image1]: ./examples/visualization.png "Visualization"
 [image3]: ./examples/before_preprocessing.png "Before Preprocessing"
 [image3]: ./examples/after_preprocessing.png "After Preprocessing"
-<!-- [image3]: ./examples/random_noise.jpg "Random Noise" -->
-[image4]: ./examples/placeholder.png "Traffic Sign 1"
-[image5]: ./examples/placeholder.png "Traffic Sign 2"
-[image6]: ./examples/placeholder.png "Traffic Sign 3"
-[image7]: ./examples/placeholder.png "Traffic Sign 4"
-[image8]: ./examples/placeholder.png "Traffic Sign 5"
+
+[test_image1]: ./test_images/11_right_of_way.jpg "right of way"
+[test_image2]: ./test_images/12_priority_road.jpg "priority road"
+[test_image3]: ./test_images/13_yield_sign.jpg "yield sign"
+[test_image4]: ./test_images/14_stop_sign.jpg "Stop Sign"
+[test_image5]: ./test_images/15_no_vehicles.jpg "no vehicles"
+[test_image6]: ./test_images/18_general_caution.jpg "general caution"
+[test_image7]: ./test_images/25_road_work.jpg "road work"
+[test_image8]: ./test_images/34_turn_left_ahead.jpg "turn left ahead"
+[test_image9]: ./test_images/3_speed_limit_60kmh.jpg "speed limit (60 kmh)"
+[test_image10]: ./test_images/9_no_passing.jpg "no passing"
+
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.
@@ -67,71 +73,86 @@ Here is an example of a traffic sign image before and after grayscaling and norm
 
 ![alt text][image2] ![alt text][image3]
 
-
-
-I decided to generate additional data because ...
-
-To add more data to the the data set, I used the following techniques because ...
-
-Here is an example of an original image and an augmented image:
-
-![alt text][image3]
-
-The difference between the original data set and the augmented data set is the following ...
-
+Although I understand the benefits of data augmentation, I have not done that for this project just to see how it works out.
 
 #### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
-My final model consisted of the following layers:
+My final model is LeNet with dropouts, which consisted of the following layers:
 
 | Layer         		|     Description	        					|
 |:---------------------:|:---------------------------------------------:|
-| Input         		| 32x32x3 RGB image   							|
-| Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x64 	|
+| Input         		| 32x32x1 grayscale image   							|
+| Convolution Layer   | 5x5 convolution, 1x1 stride, valid padding, outputs 28x28x6 	|
 | RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
-| Convolution 3x3	    | etc.      									|
-| Fully connected		| etc.        									|
-| Softmax				| etc.        									|
-|						|												|
-|						|												|
+| Max pooling	      	| 2x2 stride,  valid padding, outputs 16x16x6 				|
+| Convolution layer	| 5x5 convolution, 1x1 stride, valid padding, outputs 10x10x16      		|
+| ReLU					|												|
+| Max pooling	      	| 2x2 stride,  valid padding, outputs 5x5x16 				|
+| Flatten layer		    | input 5x5x16, Output 400x1        									|
+| Fully connected		| input 400x1, output 120x1        									|
+| ReLU				    |          									|
+| Dropout				| keep_pro =0.5												|
+| Fully connected		| input 120x1, output 84x1												|
+| ReLU				    |          									|
+| Dropout				| keep_pro =0.5												|
+| Fully connected		| input 84x1, output 43x1												|
 
 
 
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-To train the model, I used an ....
+To train the model, I used an Adam optimizer, and other hyperparameters as following:
+# epochs = 60
+batch size = 128
+learning rate = 0.001 # learning rate
+
 
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
 My final model results were:
-* training set accuracy of ?
-* validation set accuracy of ?
-* test set accuracy of ?
+* training set accuracy of 0.999
+* validation set accuracy of 0.934
+* test set accuracy of 0.917
+
 
 If an iterative approach was chosen:
 * What was the first architecture that was tried and why was it chosen?
-* What were some problems with the initial architecture?
-* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
-* Which parameters were tuned? How were they adjusted and why?
-* What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
+I used the original LeNet as the first architecture, the reason I chose it was because:
+ (1) it is classic 
+ (2) I heard that even today, LeNet is still not out of fashion yet (although not as fancy as AlexNet, VGG, GoogleLeNet, ResNet) and many more recent predominant nets are still based on LeNet 
+ (3) I want to see how the performance it will be if just using this simple architecture, and if it is not good, I could use it as a baseline
 
-If a well known architecture was chosen:
-* What architecture was chosen?
-* Why did you believe it would be relevant to the traffic sign application?
-* How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
+* What were some problems with the initial architecture?
+Without dropouts, even validation accurracy is > 0.93 and test accuracy is > 0.91, when testing on the new images I download from internet, the accuracuy for the 10 images I downloaded are pretty poor, something around 10% ~ 30%; another issues with the original LeNet archicture was that it requires a lot of epoches (sometimes > 100) to achieve > 0.93 validation accuracy.
+
+another interesting observation I had was that re-traininng the nets will give pretty different performances from one trained net to another trained net,  I believe this is an evidence of the effectiveness of overfitting prevention techniques such as dropout or batch normalization.  
+
+* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
+
+I simply adjusted the architecture by adding dropouts after the two fully connected layers before the final FC layer. And the training times (number of epoches needed) was reduced greatly, I could reached >0.93 validation accuracy in 60 epoches, and also the accuracy in the new testing images I downloaded is reaching 80% ( 8 out of 10 were successfully detected). 
+
+
+* Which parameters were tuned? How were they adjusted and why?
+I mostly tuned 3 hyperparameters:
+* # of epoches  
+* learning rate
+when I make it too smaller , such as 0.0001, it requires a lot of epoches to reach 0.93 validation accuracy;
+* keep_pro for dropout
+I feel that 0.5 ~ 0.6 is provide better generalization than higher keep_pro
 
 
 ### Test a Model on New Images
 
-#### 1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
+#### 1. Choose 10 German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
 
-Here are five German traffic signs that I found on the web:
+Here are 10 German traffic signs that I found on the web:
 
-![alt text][image4] ![alt text][image5] ![alt text][image6]
-![alt text][image7] ![alt text][image8]
+![alt text][test_image1] ![alt text][test_image2] ![alt text][test_image3]
+![alt text][test_image4] ![alt text][test_image5] ![alt text][test_image6]
+![alt text][test_image7] ![alt text][test_image8] ![alt text][test_image9]
+![alt text][test_image10]
 
-The first image might be difficult to classify because ...
+
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
