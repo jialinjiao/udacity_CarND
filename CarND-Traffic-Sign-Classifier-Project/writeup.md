@@ -18,7 +18,7 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 
 [image1]: ./examples/visualization.png "Visualization"
-[image3]: ./examples/before_preprocessing.png "Before Preprocessing"
+[image2]: ./examples/before_preprocessing.png "Before Preprocessing"
 [image3]: ./examples/after_preprocessing.png "After Preprocessing"
 
 [test_image1]: ./test_images/11_right_of_way.jpg "right of way"
@@ -102,9 +102,9 @@ My final model is LeNet with dropouts, which consisted of the following layers:
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
 To train the model, I used an Adam optimizer, and other hyperparameters as following:
-# epochs = 60
-batch size = 128
-learning rate = 0.001 # learning rate
+*number of epochs = 60
+*batch size = 128
+*learning rate = 0.001 # learning rate
 
 
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
@@ -147,11 +147,16 @@ I feel that 0.5 ~ 0.6 is provide better generalization than higher keep_pro
 
 Here are 10 German traffic signs that I found on the web:
 
-![alt text][test_image1] ![alt text][test_image2] ![alt text][test_image3]
-![alt text][test_image4] ![alt text][test_image5] ![alt text][test_image6]
-![alt text][test_image7] ![alt text][test_image8] ![alt text][test_image9]
+![alt text][test_image1] 
+![alt text][test_image2] 
+![alt text][test_image3]
+![alt text][test_image4] 
+![alt text][test_image5] 
+![alt text][test_image6]
+![alt text][test_image7] 
+![alt text][test_image8] 
+![alt text][test_image9]
 ![alt text][test_image10]
-
 
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
