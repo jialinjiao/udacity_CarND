@@ -73,6 +73,8 @@ Here is an example of a traffic sign image before and after grayscaling and norm
 
 ![alt text][image2] ![alt text][image3]
 
+I also sample the first image of each class and display them in the notebook.
+
 Although I understand the benefits of data augmentation, I have not done that for this project just to see how it works out.
 
 #### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
