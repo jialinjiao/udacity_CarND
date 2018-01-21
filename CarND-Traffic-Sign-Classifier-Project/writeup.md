@@ -118,23 +118,23 @@ My final model results were:
 If an iterative approach was chosen:
 * What was the first architecture that was tried and why was it chosen?
 I used the original LeNet as the first architecture, the reason I chose it was because:
- (1) it is classic 
- (2) I heard that even today, LeNet is still not out of fashion yet (although not as fancy as AlexNet, VGG, GoogleLeNet, ResNet) and many more recent predominant nets are still based on LeNet 
+ (1) it is classic
+ (2) I heard that even today, LeNet is still not out of fashion yet (although not as fancy as AlexNet, VGG, GoogleLeNet, ResNet) and many more recent predominant nets are still based on LeNet
  (3) I want to see how the performance it will be if just using this simple architecture, and if it is not good, I could use it as a baseline
 
 * What were some problems with the initial architecture?
 Without dropouts, even validation accurracy is > 0.93 and test accuracy is > 0.91, when testing on the new images I download from internet, the accuracuy for the 10 images I downloaded are pretty poor, something around 10% ~ 30%; another issues with the original LeNet archicture was that it requires a lot of epoches (sometimes > 100) to achieve > 0.93 validation accuracy.
 
-another interesting observation I had was that re-traininng the nets will give pretty different performances from one trained net to another trained net,  I believe this is an evidence of the effectiveness of overfitting prevention techniques such as dropout or batch normalization.  
+another interesting observation I had was that re-traininng the nets will give pretty different performances from one trained net to another trained net,  I believe this is an evidence of the effectiveness of overfitting prevention techniques such as dropout or batch normalization.
 
 * How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
 
-I simply adjusted the architecture by adding dropouts after the two fully connected layers before the final FC layer. And the training times (number of epoches needed) was reduced greatly, I could reached >0.93 validation accuracy in 60 epoches, and also the accuracy in the new testing images I downloaded is reaching 80% ( 8 out of 10 were successfully detected). 
+I simply adjusted the architecture by adding dropouts after the two fully connected layers before the final FC layer. And the training times (number of epoches needed) was reduced greatly, I could reached >0.93 validation accuracy in 60 epoches, and also the accuracy in the new testing images I downloaded is reaching 80% ( 8 out of 10 were successfully detected).
 
 
 * Which parameters were tuned? How were they adjusted and why?
 I mostly tuned 3 hyperparameters:
-* # of epoches  
+* number of epoches
 * learning rate
 when I make it too smaller , such as 0.0001, it requires a lot of epoches to reach 0.93 validation accuracy;
 * keep_pro for dropout
@@ -147,49 +147,57 @@ I feel that 0.5 ~ 0.6 is provide better generalization than higher keep_pro
 
 Here are 10 German traffic signs that I found on the web:
 
-![alt text][test_image1] 
-![alt text][test_image2] 
-![alt text][test_image3]
-![alt text][test_image4] 
-![alt text][test_image5] 
-![alt text][test_image6]
-![alt text][test_image7] 
-![alt text][test_image8] 
-![alt text][test_image9]
-![alt text][test_image10]
+Right of way <br />
+![alt text][test_image1] <br />
+Priority road <br />
+![alt text][test_image2] <br />
+Yield sign <br />
+![alt text][test_image3] <br />
+Stop sign <br />
+![alt text][test_image4] <br />
+No vehicle <br />
+![alt text][test_image5] <br />
+General caution <br />
+![alt text][test_image6] <br />
+Road work <br />
+![alt text][test_image7] <br />
+Turn left ahead <br />
+![alt text][test_image8] <br />
+Speed limit (60 kmh) <br />
+![alt text][test_image9] <br />
+No passing <br />
+![alt text][test_image10] <br />
 
+I feel the priority road, no vehicle, general causion and road work might be difficult to clasify because of complicated background and noise, and also the speed limit sign might be also hard due to the image size is very small.
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
 Here are the results of the prediction:
 
-| Image			        |     Prediction	        					|
-|:---------------------:|:---------------------------------------------:|
-| Stop Sign      		| Stop sign   									|
-| U-turn     			| U-turn 										|
-| Yield					| Yield											|
-| 100 km/h	      		| Bumpy Road					 				|
-| Slippery Road			| Slippery Road      							|
+
+| Image			        |     Prediction	        					| Correct?|
+|:---------------------:|:---------------------------------------------:|:------:|
+| No Vehicle      		| No Vehicle   									| Yes |
+| Road work     			| Speed Limit (30km/h) 										| No|
+| Stop sign					| Stop sign											|Yes|
+| Right of way	      		| Right of way					 				| Yes|
+| Speed limit (60km/h)		| No passing      							| No |
+| Turn left ahead      		| Turn left ahead   									| Yes |
+| No passing     			| No passing 										| Yes |
+| Priority road					| Priority road											| Yes |
+| General caution	      		| General caution					 				| Yes |
+| Yield sign			| Yield sign      							| Yes |
 
 
-The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
+
+The model was able to correctly guess 8 of the 10 traffic signs, which gives an accuracy of 80%.
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
-The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
 
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
-
-| Probability         	|     Prediction	        					|
-|:---------------------:|:---------------------------------------------:|
-| .60         			| Stop sign   									|
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
+Actually all the ten tests have overwhelming high probablities for the highest probablity, usually 1.0 or more than 0.9999; even for the wrong predictions (road work and speed limit 60km/h), the wrong prediction got high probablity and the probabilistics for the correct class are not even in the top 5.
 
 
-For the second image ...
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
 #### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
