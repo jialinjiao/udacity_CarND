@@ -2,33 +2,29 @@ import numpy as np
 import csv
 import cv2
 import sklearn
-
 from sklearn.model_selection import train_test_split
 from keras.models import Sequential
 from keras.layers import Flatten, Dense, Lambda, MaxPooling2D, Dropout
 from keras.layers.convolutional import Convolution2D
 
-# Constants
 data_path = "data/"
-image_path = data_path + "IMG/"
+image_path = "data/IMG/"
 left_image_angle_correction = 0.20
 right_image_angle_correction = -0.20
 csv_data = []
 processed_csv_data = []
 
-# Reading the content of csv file
+# Read the csv file
 with open(data_path + 'driving_log.csv') as csv_file:
     csv_reader = csv.reader(csv_file)
-    # Skipping the headers
+    # Skip header
     next(csv_reader, None)
     for each_line in csv_reader:
         csv_data.append(each_line)
 
-
-# Method to pre-process the input image
 def pre_process_image(image):
-    # Since cv2 reads the image in BGR format and the simulator will send the image in RGB format
-    # Hence changing the image color space from BGR to RGB
+    # cv2 reads the image in BGR format but the simulator will send the image in RGB format
+    # we need to change the image color space from BGR to RGB
     colored_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     # Cropping the image
     cropped_image = colored_image[60:140, :]
